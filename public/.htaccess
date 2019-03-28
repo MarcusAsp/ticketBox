@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Rewrite for category.php to category
+RewriteRule ^category category.php [NC,L]
+
+# Rewrite for login.php to login
+RewriteRule ^login login.php [NC,L]
+
+# Rewrite for products.php to products§
+RewriteRule ^products products.php [NC,L]
+
+# So it looks like this category/productName 
+# RewriteRule ^category/([0-9a-zA-Z]+) category.php?x=$1 [NC, L]
+
+# Rewrite for product-category-page.php to product-category-page
+RewriteRule ^product-category-page product-category-page.php [NC,L]

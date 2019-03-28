@@ -1,0 +1,14 @@
+main{
+    margin: 0 auto;
+    width: 960px;
+    box-shadow: 0 5px black;
+}
+
+.navbar-brand{
+    border-radius: 50px !important;
+}
+
+.navbar-brand img{
+    border-radius: 50px !important;
+    width: 100px;
+}
