@@ -1,9 +1,9 @@
 <?php
 class Dbh {
     private $username = "root";
-    private $password = "root";
+    private $password = "";
     private $host = "localhost";
-    private $dbname = "ticketBox";
+    private $dbname = "ticketbox";
     private $charset = "utf8";
 
     protected $conn;

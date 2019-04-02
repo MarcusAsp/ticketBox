@@ -1,5 +1,4 @@
 <?php include('../includes/header.php'); ?>
-<?php include('src/login.inc.php'); ?>
 
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">

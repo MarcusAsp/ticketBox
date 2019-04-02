@@ -1,5 +1,6 @@
 <?php
 require_once('../db/config.php');
+include_once('../public/src/login.inc.php');
 session_start();
 
 if(isset($_POST['logIn'])){
@@ -12,15 +13,20 @@ if(isset($_POST['logIn'])){
     $user->logIn($username, $password);
 }
 
-if(isset($_POST['signUp'])){
-    $firstname = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-    $lastname = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-    $email = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_EMAIL);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+if(isset($_POST['logOut'])){
+    unset($_SESSION['user']);
+    session_destroy();
+    header("Location: index.php");
+}
 
+if(isset($_POST['signUpform'])){
+    $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+    $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $password = filter_input(INPUT_POST, 'createPassword', FILTER_SANITIZE_STRING);
     $password = hash("sha256", $password);
 
-    $userInfo = [$email, $firstname, $lastname, $password];
+    $userInfo = [$firstname, $lastname, $email, $password];
 
     $user = new User();
     $user->createAccount($userInfo);
@@ -30,7 +36,6 @@ if(isset($_POST['signUp'])){
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +50,6 @@ if(isset($_POST['signUp'])){
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
 </head>
-
 <body>
     <main>
         <!-- HEADER -->
@@ -68,20 +72,24 @@ if(isset($_POST['signUp'])){
                         </li>
                     </ul>
                     <span class="navbar-text">
-
                     <?php 
                         if(isset($_SESSION['user'])){
-                           echo('<input type="submit" name="logOut" class="btn btn-secondary" data-dismiss="modal" value="Log out">');
+                           echo('
+                           <form method="POST">
+                            <input type="submit" name="logOut" class="btn btn-secondary" data-dismiss="modal" value="Log out">
+                           </form>
+                           ');
                         }else{
                            echo('
-                            <button type="button" class="btn btn-outline-secondary text-dark" data-toggle="modal" data-target="#exampleModal" id="logIn">Log in</button>
+                            <button type="button" class="btn btn-outline-secondary text-dark" data-toggle="modal" data-target="#logInModal">Log in</button>
+                            <button type="button" class="btn btn-outline-secondary text-dark" data-toggle="modal" data-target="#signUpModal">Sign up</button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <!-- Log In Modal -->
+                            <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Log In</h5>
+                                            <h5 class="modal-title" id="logInModalLabel">Log In</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -98,8 +106,46 @@ if(isset($_POST['signUp'])){
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Sign Up">
-                                                <input type="submit" name="logIn" class="btn btn-secondary" data-dismiss="modal" value="Log In">
+                                                <input type="submit" name="logIn" class="btn btn-secondary" value="Log In">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sign Up Modal -->
+                            <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form method="POST">
+                                            <div class="modal-body">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputEmail">Email</label>
+                                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                        <label for="inputPassword">Password</label>
+                                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="createPassword">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control" placeholder="First name" name="firstname">
+                                                        </div>
+                                                        <div class="col">
+                                                        <input type="text" class="form-control" placeholder="Last name" name="lastname">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" name="signUpform" class="btn btn-secondary" value="Sign Up">
                                             </div>
                                         </form>
                                     </div>
