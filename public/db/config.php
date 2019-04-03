@@ -1,9 +1,9 @@
 <?php
 class Dbh {
     private $username = "root";
-    private $password = "";
+    private $password = "root";
     private $host = "localhost";
-    private $dbname = "ticketbox";
+    private $dbname = "ticketBox";
     private $charset = "utf8";
 
     protected $conn;
@@ -11,7 +11,7 @@ class Dbh {
     public function __construct(){
         try{
             $dsn = "mysql:host=".$this->host.";dbname=".$this->dbname.";charset=".$this->charset;
-            $this->conn = new PDO($dsn ,$this->username,$this->password);    
+            $this->conn = new PDO($dsn,$this->username,$this->password);
         }catch(PDOException $e){
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }

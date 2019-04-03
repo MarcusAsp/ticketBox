@@ -1,0 +1,22 @@
+main{
+    margin: auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.loginAdmin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.loginAdmin > div{
+    width: 500px;
+    border-radius: 20px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}

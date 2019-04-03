@@ -1,17 +1,17 @@
 <?php 
-class User {
+class Admin {
     private $db;
     public function __construct(){
         $this->db = new Dbh();
         $this->db = $this->db->connect();
     }
 
-    public function logIn($email, $password){
-        $stmt = $this->db->prepare("SELECT * FROM ticketBox.users WHERE `e-mail` = :email AND `password` = :pass");
-        if($stmt->execute([':email' => $email, ':pass' => $password]) && $stmt->fetchColumn()){
-            $_SESSION['user'] = $email;
+    public function logIn($username, $password){
+        $stmt = $this->db->prepare("SELECT * FROM ticketBox.admin WHERE `username` = :username AND `password` = :pass");
+        if($stmt->execute([':username' => $username, ':pass' => $password]) && $stmt->fetchColumn()){
+            $_SESSION['admin'] = $username;
         }else {
-            echo "<script>alert('User does not exists!');</script>";
+            echo "<script>alert('Admin does not exists!');</script>";
          }
         
     }

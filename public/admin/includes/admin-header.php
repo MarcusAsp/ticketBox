@@ -1,39 +1,17 @@
 <?php
 require_once('../db/config.php');
-include_once('../public/src/login.inc.php');
+include_once('src/admin-login.inc.php');
 session_start();
 
-if(isset($_POST['logIn'])){
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_EMAIL);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+if (isset($_POST['logInAdmin'])) {
+    $username = filter_input(INPUT_POST, 'adminusername', FILTER_SANITIZE_STRING);
+    $password = filter_input(INPUT_POST, 'adminpassword', FILTER_SANITIZE_STRING);
 
-    $password = hash("sha256", $password);
-
-    $user = new User();
+    $user = new Admin();
     $user->logIn($username, $password);
 }
 
-if(isset($_POST['logOut'])){
-    unset($_SESSION['user']);
-    session_destroy();
-    header("Location: index.php");
-}
-
-if(isset($_POST['signUpform'])){
-    $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-    $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $password = filter_input(INPUT_POST, 'createPassword', FILTER_SANITIZE_STRING);
-    $password = hash("sha256", $password);
-
-    $userInfo = [$firstname, $lastname, $email, $password];
-
-    $user = new User();
-    $user->createAccount($userInfo);
-}
-
-
-?>
+$head = '
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,41 +28,34 @@ if(isset($_POST['signUpform'])){
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
 </head>
+';
+
+if(isset($_SESSION['admin'])){
+echo($head);
+echo('
 <body>
-    <main>
-    <?php 
-                        if(isset($_SESSION['user'])){
-                           echo('
-                           <form method="POST">
-                            <input type="submit" name="logOut" class="btn btn-secondary" data-dismiss="modal" value="Log out">
-                           </form>
-                           ');
-                        }else{
-                           
-                        }
-                    ?>
-        <!-- HEADER -->
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="../public/index.php"><img src="../public/assets/images/logos/sitelogo.png"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="../public/index.php">Home<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Concerts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Upcoming events</a>
-                        </li>
-                    </ul>
-                    <span class="navbar-text">
-                    
-                    </span>
-                </div>
-            </nav>
-        </header> 
+    <header>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="edit-concerts.php">Concerts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="edit-events.php">Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="edit-users.php">Users</a>
+            </li>
+            <li class="nav-item">
+                <a href="logOutAdmin.php" class="nav-link">Log out</a>
+            </li>
+        </ul>
+    </header>
+    <main> 
+');
+}else{
+    echo($head);
+}
+?>

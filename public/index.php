@@ -1,4 +1,4 @@
-<?php include('../includes/header.php'); ?>
+<?php include('includes/header.php'); ?>
 
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
@@ -22,4 +22,4 @@
     }
 ?>
 
-<?php include('../includes/footer.php'); ?> 
+<?php include('includes/footer.php'); ?> 

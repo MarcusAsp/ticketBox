@@ -1,6 +1,6 @@
 <?php
-require_once('../db/config.php');
-include_once('../public/src/login.inc.php');
+require_once('db/config.php');
+include_once('src/login.inc.php');
 session_start();
 
 if(isset($_POST['logIn'])){

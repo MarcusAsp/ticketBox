@@ -5,27 +5,33 @@
         echo "<h5>Välkommen ".$_SESSION['admin']."</h5>";
     }else{
         echo ('
-          <form>
-            <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-              <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+        <div class="loginAdmin">
+        <div>
+          <div class="card-body">
+            <form method="POST">
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Admin</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputEmail3" placeholder="Username" name="adminusername">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-              <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+              <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="adminpassword">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+              <div class="form-group row">
+                <div class="col-sm-10">
+                  <input type="submit" class="btn btn-primary" value="Sign in" name="logInAdmin">
+                </div>
               </div>
+            </form>
           </div>
-        </form>
+        </div>
+        </div>
         ');
     }
 ?>
 
-<?php include('../includes/footer.php'); ?> 
+<?php include('includes/footer.php'); ?> 
