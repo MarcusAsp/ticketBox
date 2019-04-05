@@ -26,7 +26,6 @@ $head = '
     <script src="assets/functions/bootstrap.min.js"></script>
     <script src="assets/functions/functions.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-
 </head>
 ';
 
@@ -43,13 +42,13 @@ echo('
                 <a class="nav-link" href="edit-concerts.php">Concerts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="edit-events.php">Events</a>
+                <a class="nav-link" href="events.php">Events</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="edit-users.php">Users</a>
             </li>
             <li class="nav-item">
-                <a href="logOutAdmin.php" class="nav-link">Log out</a>
+                <a href="../logOutAdmin.php" class="nav-link">Log out</a>
             </li>
         </ul>
     </header>
