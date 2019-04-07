@@ -21,17 +21,26 @@ class Event {
 
     public function saveForm($fields, $orderNumber){
         try{
-            $stmt = $this->db->prepare("UPDATE ticketBox.event SET `date` = `:date`, activeEvent = :activeEvent, price = :price, `location` = `:location`, nrTickets = :nrTickets WHERE id = :id");
-            $stmt->bindValue(':id', $fields[0], PDO::PARAM_INT);
+            // NÅGONSTANS HÄR FUCKAS DET
+            $stmt = $this->db->prepare("UPDATE ticketBox.event SET
+            `name` = `:eventName`,
+            `date` = `:date`,
+             activeEvent = `:activeEvent`,
+             price = :price,
+            `location` = `:location`,
+             nrTickets = :nrTickets
+             WHERE id = :id");
+
+            $stmt->bindValue(':id', $orderNumber, PDO::PARAM_INT);
+            $stmt->bindValue(':eventName', $fields[0], PDO::PARAM_INT);
             $stmt->bindValue(':nrTickets', $fields[1], PDO::PARAM_STR);
             $stmt->bindValue(':location', $fields[2], PDO::PARAM_INT);
             $stmt->bindValue(':price', $fields[3], PDO::PARAM_STR);
             $stmt->bindValue(':date', $fields[4], PDO::PARAM_STR);
             $stmt->bindValue(':activeEvent', $fields[5], PDO::PARAM_STR);
 
-            if($stmt){
-                $stmt->execute();
-                header('Location: events.php');
+            if($stmt->execute()){ // EXECUTEN BLIR FALSE
+            header('Location: events.php');
             }
         }catch(PDOException $e){
             echo($e->getMessage());

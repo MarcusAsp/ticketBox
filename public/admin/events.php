@@ -2,26 +2,26 @@
 <?php include('src/events.inc.php'); ?>
 <?php
 
-
     $event = new Event();
+
     if(isset($_POST['saveForm'])){
+        
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         $eventName = filter_input(INPUT_POST, 'eventName', FILTER_SANITIZE_STRING);
         $nrTickets = filter_input(INPUT_POST, 'nrTickets', FILTER_SANITIZE_NUMBER_INT);
         $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
-        $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING);
-        $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_DATE);
+        $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT);
+        $date = preg_replace("([^0-9/\s\-])", "", $_POST['date']);
         $activeEvent = filter_input(INPUT_POST, 'activeEvent', FILTER_SANITIZE_STRING);
-
+        
         echo "<script>confirm('Nu har jag klickat');</script>";
-
-        if($activeEvent == "True"){
+        if($activeEvent = "True"){
             $activeEventNumber = 1;
             echo "<script>confirm('Nu sätts den till 1');</script>";
         }else{
             $activeEventNumber = 0;
         }
-        $query = [$id, $eventName, $nrTickets, $location, $price, $date, $activeEventNumber];
+        $query = [$eventName, $nrTickets, $location, $price, $date, $activeEventNumber];
         $event->saveForm($query, $id);
     }
 
@@ -32,8 +32,6 @@
    
    $eventRows = $event->loadEvents();
 ?>
-
-
 
 <?php
    foreach($eventRows as $event){
@@ -94,6 +92,5 @@
 </form>
 <?php
 }
-print_r($_POST);
 ?>
 <?php include('includes/footer.php'); ?> 
