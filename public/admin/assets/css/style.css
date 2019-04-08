@@ -1,11 +1,5 @@
 main{
-    margin: auto 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
-
-
 
 .loginAdmin{
     display: flex;

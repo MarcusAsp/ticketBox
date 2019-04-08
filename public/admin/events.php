@@ -1,23 +1,20 @@
-<?php include('includes/admin-header.php'); ?>
+<?php require_once('includes/admin-header.php'); ?>
 <?php include('src/events.inc.php'); ?>
 <?php
 
     $event = new Event();
 
     if(isset($_POST['saveForm'])){
-        
-        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $eventName = filter_input(INPUT_POST, 'eventName', FILTER_SANITIZE_STRING);
-        $nrTickets = filter_input(INPUT_POST, 'nrTickets', FILTER_SANITIZE_NUMBER_INT);
+        $nrTickets = filter_input(INPUT_POST, 'nrTickets', FILTER_VALIDATE_INT);
         $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
-        $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_INT);
+        $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_INT);
         $date = preg_replace("([^0-9/\s\-])", "", $_POST['date']);
-        $activeEvent = filter_input(INPUT_POST, 'activeEvent', FILTER_SANITIZE_STRING);
+        $activeEvent = filter_input(INPUT_POST, 'activeEvent', FILTER_VALIDATE_INT);
         
-        echo "<script>confirm('Nu har jag klickat');</script>";
-        if($activeEvent = "True"){
+        if($activeEvent == "True"){
             $activeEventNumber = 1;
-            echo "<script>confirm('Nu sätts den till 1');</script>";
         }else{
             $activeEventNumber = 0;
         }
@@ -32,6 +29,8 @@
    
    $eventRows = $event->loadEvents();
 ?>
+
+  <?php  include('add-event.php'); ?>
 
 <?php
    foreach($eventRows as $event){
@@ -57,7 +56,8 @@
                 <span class="input-group-text" id="">Location</span>
             </div>
             <input name="location" type="text" class="form-control" value="<?php echo($event['location']); ?>">
-
+   </div>
+   <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="">Price</span>
             </div>
@@ -90,6 +90,7 @@
             <input type="submit" name="deleteRow" class="form-control btn btn-danger" value="Delete">
     </div>
 </form>
+<hr><br>
 <?php
 }
 ?>

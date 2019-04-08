@@ -8,7 +8,7 @@ class Event {
     }
 
     public function loadEvents(){
-        $stmt = $this->db->prepare("SELECT * FROM `event`");
+        $stmt = $this->db->prepare("SELECT * FROM event");
         if($stmt->execute()){
             if($stmt->rowCount() > 0){
                 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -21,25 +21,19 @@ class Event {
 
     public function saveForm($fields, $orderNumber){
         try{
-            // NÅGONSTANS HÄR FUCKAS DET
-            $stmt = $this->db->prepare("UPDATE ticketBox.event SET
-            `name` = `:eventName`,
-            `date` = `:date`,
-             activeEvent = `:activeEvent`,
-             price = :price,
-            `location` = `:location`,
-             nrTickets = :nrTickets
-             WHERE id = :id");
+            $stmt = $this->db->prepare("UPDATE ticketBox.event 
+            SET name = :eventName, date = :date, activeEvent = :activeEvent, price = :price, location = :location, nrTickets = :nrTickets
+            WHERE id = :id");
 
             $stmt->bindValue(':id', $orderNumber, PDO::PARAM_INT);
-            $stmt->bindValue(':eventName', $fields[0], PDO::PARAM_INT);
-            $stmt->bindValue(':nrTickets', $fields[1], PDO::PARAM_STR);
-            $stmt->bindValue(':location', $fields[2], PDO::PARAM_INT);
-            $stmt->bindValue(':price', $fields[3], PDO::PARAM_STR);
+            $stmt->bindValue(':eventName', $fields[0], PDO::PARAM_STR);
+            $stmt->bindValue(':nrTickets', $fields[1], PDO::PARAM_INT);
+            $stmt->bindValue(':location', $fields[2], PDO::PARAM_STR);
+            $stmt->bindValue(':price', $fields[3], PDO::PARAM_INT);
             $stmt->bindValue(':date', $fields[4], PDO::PARAM_STR);
-            $stmt->bindValue(':activeEvent', $fields[5], PDO::PARAM_STR);
+            $stmt->bindValue(':activeEvent', $fields[5], PDO::PARAM_INT);
 
-            if($stmt->execute()){ // EXECUTEN BLIR FALSE
+            if($stmt->execute()){
             header('Location: events.php');
             }
         }catch(PDOException $e){
@@ -60,6 +54,20 @@ class Event {
         }catch(PDOException $e){
             echo($e->getMessage());
         }
-    }   
+    }
+    
+    public function createEvent($fields){
+        try{
+        $stmt = $this->db->prepare("INSERT INTO ticketBox.event (name, nrTickets, location, price, date, activeEvent) 
+        VALUES (?,?,?,?,?,?)");
+            if($stmt->execute([$fields[0], $fields[1], $fields[2], $fields[3], $fields[4], $fields[5]])){
+            header('Location: events.php');
+            }
+        }catch(PDOException $e){
+            echo($e->getMessage());
+        }
+    }
+
 
 }
+
