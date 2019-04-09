@@ -39,7 +39,7 @@ echo('
                 <a class="nav-link active" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="edit-concerts.php">Concerts</a>
+                <a class="nav-link" href="tickets.php">Concerts</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="events.php">Events</a>
