@@ -30,7 +30,7 @@
    $eventRows = $event->loadEvents();
 ?>
 
-  <?php  include('add-event.php'); ?>
+  <?php  include('src/add-event.php'); ?>
 
 <?php
    foreach($eventRows as $event){

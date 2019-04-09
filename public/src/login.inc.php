@@ -17,7 +17,6 @@ class User {
     }
 
     public function createAccount($userInfo){
-        echo "<script>console.log('Döda mig');</script>";
         $stmt = $this->db->prepare("SELECT * FROM ticketBox.users WHERE `e-mail` = :email");
         if($stmt->execute([':email' => $userInfo[2]]) && $stmt->fetchColumn()){
             echo "<script>alert('User aready exists!');</script>";
@@ -26,8 +25,9 @@ class User {
         (`firstName`, `lastName`, `e-mail`, `password`)
         VALUES (?,?,?,?)");
         $answer = $stmt->execute([$userInfo[0],$userInfo[1],$userInfo[2],$userInfo[3]]);
-        }
+
         $_SESSION['user'] = $userInfo[2];
         header("Location: index.php");
+        }
     }
 }

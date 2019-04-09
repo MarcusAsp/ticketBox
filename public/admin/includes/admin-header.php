@@ -45,7 +45,7 @@ echo('
                 <a class="nav-link" href="events.php">Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="edit-users.php">Users</a>
+                <a class="nav-link" href="users.php">Users</a>
             </li>
             <li class="nav-item">
                 <a href="../logOutAdmin.php" class="nav-link">Log out</a>
