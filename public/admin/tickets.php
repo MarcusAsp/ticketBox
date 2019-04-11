@@ -1,65 +1,51 @@
 <?php require_once('includes/admin-header.php'); ?>
-<?php include('src/users.inc.php'); ?>
+<?php include('src/tickets.inc.php'); ?>
 
 <?php
 
-    $users = new Users();
+    $ticket = new Ticket();
 ?>
 <?php
-    if(isset($_POST['saveUser'])){
-        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-        $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
-        $lastName = filter_input(INPUT_POST, 'lastName', FILTER_SANITIZE_STRING);
-        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    if(isset($_POST['saveTicket'])){
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT);
+        $eventId = filter_input(INPUT_POST, 'eventId', FILTER_SANITIZE_NUMBER_INT);
         
-        $query = [$firstName, $lastName, $password, $email];
-        $users->updateUser($query, $id);
+        
+        $query = [$userId, $eventId];
+        $ticket->updateTicket($query, $id);
     }
 
-    if(isset($_POST['deleteUser'])){
+    if(isset($_POST['deleteTicket'])){
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-        $users->deleteUser($id);
+        $eventId = filter_input(INPUT_POST, 'eventId', FILTER_SANITIZE_NUMBER_INT);
+        $ticket->deleteTicket($id, $eventId);
     }
    
-   $usersRows = $users->loadUsers();
-?>
+$ticketRows = $ticket->loadTickets();
 
+include_once('src/add-ticket.php');
 
-<?php include_once('src/add-user.php'); ?>
-
-<?php
-   foreach($usersRows as $userRow){
+foreach($ticketRows as $ticketRow){
 ?>
 <form method="POST">
     <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="">User Id: <?php echo($userRow['id']); ?></span>
-                <input name="id" type="text" value="<?php echo($userRow['id']); ?>" style="display:none;">
+                <span class="input-group-text" id="">Ticket Id: <?php echo($ticketRow['id']); ?></span>
+                <input name="id" type="text" value="<?php echo($ticketRow['id']); ?>" style="display:none;">
             </div>
             <div class="input-group-prepend">
-                <span class="input-group-text" id="">First name:</span>
+                <span class="input-group-text" id="">User Id:</span>
             </div>
-            <input name="firstName" type="text" class="form-control" value="<?php echo($userRow['firstName']); ?>">
+            <input name="userId" type="text" class="form-control" value="<?php echo($ticketRow['userId']); ?>">
 
             <div class="input-group-prepend">
-                <span class="input-group-text" id="">Last name:</span>
+                <span class="input-group-text" id="">Event Id:</span>
             </div>
-            <input name="lastName" type="text" class="form-control" value="<?php echo($userRow['lastName']); ?>">
+            <input name="eventId" type="text" class="form-control" value="<?php echo($ticketRow['eventId']); ?>">
 
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="">Password:</span>
-            </div>
-            <input name="password" type="text" class="form-control" value="<?php echo($userRow['password']); ?>">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="">E-mail:</span>
-            </div>
-            <input name="email" type="text" class="form-control" value="<?php echo($userRow['email']); ?>">
-
-            <span class="input-group-text" id="">Date Added: <?php echo($userRow['dateAdded']); ?></span>
-
-            <input type="submit" name="saveUser" class="form-control btn btn-success" value="Save">
-            <input type="submit" name="deleteUser" class="form-control btn btn-danger" value="Delete">
+            <input type="submit" name="saveTicket" class="form-control btn btn-success" value="Save">
+            <input type="submit" name="deleteTicket" class="form-control btn btn-danger" value="Delete">
     </div>
 </form>
 <hr><br>
