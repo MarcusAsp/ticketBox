@@ -13,7 +13,7 @@
         $date = preg_replace("([^0-9/\s\-])", "", $_POST['date']);
         $activeEvent = filter_input(INPUT_POST, 'activeEvent', FILTER_VALIDATE_INT);
         
-        if($activeEvent == "True"){
+        if($activeEvent = "True"){
             $activeEventNumber = 1;
         }else{
             $activeEventNumber = 0;
@@ -75,13 +75,13 @@
                 <?php
                 if ($event['activeEvent'] == 0){
                     echo ("
-                    <option value='True' selected>True</option>
-                    <option value='False'>False</option>
+                    <option value='True' >True</option>
+                    <option value='False' selected>False</option>
                     ");
                 }else{
                     echo ("
-                    <option value='True'>True</option>
-                    <option value='False' selected>False</option>
+                    <option value='True' selected>True</option>
+                    <option value='False'>False</option>
                     ");
                 }
                 ?>

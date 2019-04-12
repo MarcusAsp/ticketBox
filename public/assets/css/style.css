@@ -12,3 +12,15 @@ main{
     border-radius: 50px !important;
     width: 100px;
 }
+
+
+.shop-container{
+    width: 100%;
+    padding: 1%;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-flow: wrap;
+}
+
+
