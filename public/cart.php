@@ -1,25 +1,63 @@
 <?php include('includes/header.php'); ?>
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" src="https://picsum.photos/800/300" alt="First slide">
+<?php 
+
+if(isset($_POST['checkout'])){
+
+}
+?>
+
+<div class="cart-container">
+<div>
+  <ul class="list-group">
+  <?php 
+  if(isset($_COOKIE['cart'])){
+
+    $cartItem = json_decode($_COOKIE['cart'], true);
+    $i = 0;
+    foreach($cartItem as $key => $value){
+  ?>
+  <li class="list-group-item">
+      <img src="https://picsum.photos/50/50" alt="Event image">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+      
+        <input name="eventId" type="hidden" value="<?php echo($cartItem[$key]['eventId']); ?>">
+        <span class="input-group-text" id="inputGroup-sizing-default">Event: <?php echo($cartItem[$key]['eventName']); ?></span>
+      </div>
+      <input name="eventName" type="hidden" value="<?php echo($cartItem[$key]['eventName']); ?>">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Price: <?php echo($cartItem[$key]['eventPrice']); ?></span>
+      </div>
+      <input name="eventPrice" type="hidden" value="<?php echo($cartItem[$key]['eventPrice']); ?>">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Nr of tickets</span>
+      </div>
+        <input type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
     </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="https://picsum.photos/800/300" alt="Second slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="https://picsum.photos/800/300" alt="Third slide">
-    </div>
-  </div>
+    <button class="btn btn-danger removeCartButton">Remove <label id="removeCartId<?php echo($i); ?>" style="display:none;"><?php echo($i); ?></label></button>
+  </li>
+
+  <?php
+  $i++;
+   }
+}else{
+?>
+  <span class="form-control" id="inputGroup-sizing-default">Nothing in Cart</span>
+<?php
+}
+  ?>
+
+  </ul>
+</div>
+
+
+<div>
+</div>
 </div>
 
 <?php
-    if(isset($_SESSION['user'])){
-        echo "<h5>Välkommen ".$_SESSION['user']."</h5>";
-    }else{
-        echo "<h5>Inte inloggad</h5>";
-    }
+
 ?>
 
 <?php include('includes/footer.php'); ?> 
