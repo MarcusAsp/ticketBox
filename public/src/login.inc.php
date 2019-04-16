@@ -31,4 +31,27 @@ class User {
         Header('Location: '.$_SERVER['PHP_SELF']);
         }
     }
+
+    public function readUserTickets($user){
+        $stmt = $this->db->prepare("SELECT id FROM users WHERE email = :user");
+        $stmt->bindValue(':user', $user, PDO::PARAM_STR);
+        if ($stmt->execute()){
+            $userId = $stmt->fetchColumn();
+            $userId = (int)$userId;
+                $stmt1 = $this->db->prepare("SELECT E.name as eventName, E.location,E.date, T.id as ticketId, ticketBought FROM ticketbox.tickets as T
+                JOIN ticketBox.event as E ON eventId = E.id
+                WHERE userId = :user");
+                $stmt1->bindValue(':user', $userId, PDO::PARAM_INT);
+                if($stmt1->execute()){
+                    if($stmt1->rowCount() > 0){
+                        while($row = $stmt1->fetch(PDO::FETCH_ASSOC)){
+                            $data[] = $row;
+                    }
+                        return $data;
+                    }else{
+                        return null;
+                    }
+                }
+        }
+    }
 }

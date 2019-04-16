@@ -9,8 +9,6 @@ if(isset($_POST['logIn'])){
 
     $password = hash("sha256", $password);
 
-    echo('<script>console.log("'.$password.'")</script>');
-
     $user = new User();
     $user->logIn($username, $password);
 }
@@ -71,6 +69,10 @@ if(isset($_POST['signUpform'])){
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="cart.php">Cart</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="my-page.php">My page</a>
                         </li>
                     </ul>
                     <span class="navbar-text">

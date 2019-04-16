@@ -25,7 +25,7 @@ if(isset($_POST['checkout'])){
       $cartClass->buyEvents($eventId, $nrOfEvents, $user);
     }
     setcookie("cart","",time()-3600);
-   // Header('Location: my-page.php');
+    Header('Location: my-page.php');
 }
 ?>
 
