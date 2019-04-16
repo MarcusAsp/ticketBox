@@ -1,3 +1,9 @@
+<?php
+/*
+    Detta är sidan där användare loggar in och köper sina utvalda biljetter
+    beroende på vilka events som är tillagda i "cart" cookien.
+*/ 
+?>
 <?php include('includes/header.php'); ?>
 <?php include('src/cart.inc.php'); ?>
 

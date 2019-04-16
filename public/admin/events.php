@@ -1,3 +1,10 @@
+<?php 
+/*
+    På den här sidan kan admin hantera event med hjälp av POST formulär som tar in olika värden som filtreras och sparas i databasen
+    *CRUD* fungerar till 100%
+*/ 
+?>
+
 <?php require_once('includes/admin-header.php'); ?>
 <?php include('src/events.inc.php'); ?>
 <?php
@@ -13,6 +20,12 @@
         $date = preg_replace("([^0-9/\s\-])", "", $_POST['date']);
         $activeEvent = filter_input(INPUT_POST, 'activeEvent', FILTER_SANITIZE_STRING);
         
+        /*
+            Om eventet är aktivt eller "true" så kommer den printa ut 1. Och om det är false så blir värdet 0
+            och stoppas sedan in i databasen. 
+            (Detta läses in längre ner på sidan)
+        */ 
+
         if($activeEvent == "True"){
             $activeEventNumber = 1;
         }else{
@@ -33,6 +46,9 @@
   <?php  include('src/add-event.php'); ?>
 
 <?php
+/*
+   Loopar ut alla rader som stoppats in i arrayen $eventRows och sätter värdena i taggarna som angivits
+*/ 
    foreach($eventRows as $event){
 ?>
 <form method="POST">
@@ -73,6 +89,9 @@
             </div>
             <select name="activeEvent" class="form-control">
                 <?php
+                /*
+                    Om eventet är aktivt så kommer den printa ut True. Och likadant tvärt om
+                */ 
                 if ($event['activeEvent'] == 0){
                     echo ("
                     <option value='True' >True</option>

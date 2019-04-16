@@ -1,3 +1,8 @@
+<?php 
+/*
+    På den här sidan kan admin scanna biljetter. Söka på biljetter och "blippa" bijetter
+*/ 
+?>
 <?php include('includes/admin-header.php'); ?>
 <?php include('src/tickets.inc.php'); ?>
 <?php

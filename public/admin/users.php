@@ -1,3 +1,8 @@
+<?php 
+/*
+    På den här sidan kan admin göra CRUD för användare eller "users"
+*/ 
+?>
 <?php require_once('includes/admin-header.php'); ?>
 <?php include('src/users.inc.php'); ?>
 

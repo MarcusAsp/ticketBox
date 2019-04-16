@@ -33,28 +33,6 @@ document.addEventListener("DOMContentLoaded", function(){
         removeFromCart(id);
       });
     }
-
-    /*
-
-      TO DO LIST:
-      TO DO LIST:
-      TO DO LIST:
-      TO DO LIST:
-      TO DO LIST:
-      TO DO LIST:
-      
-      Se till att input fältet med antal biljetter är ifylld ( Loopa igenom data variabeln och kolla om värdet i ['eventId'] finns fler gånger i arrayen. En for loop i en for loop
-      
-      for(let i=0; i < "arrayen.length"; i++){
-        "let value = arrayen[i][eventId];"
-        for(let a=0; a < "arrayen.length"; a++){
-          if(value == arrayen[a]){
-            Gör nåt
-          }
-        }
-      }
-
-    */
     
   function removeFromCart(cartItemNr){
     if(data.length == 1){

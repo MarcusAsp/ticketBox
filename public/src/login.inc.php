@@ -1,3 +1,9 @@
+<?php
+/*
+    Här skapas "User" klassen som inkluderas för att skapa konto,
+    logga in och läsa in användarens köpta biljetter
+*/ 
+?>
 <?php 
 class User {
     private $db;

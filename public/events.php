@@ -1,3 +1,9 @@
+<?php
+/*
+    Detta är sidan där användaren lägger till event i sin varukorg med hjälp cookies i javascript
+    som heter "cart"
+*/ 
+?>
 <?php include('includes/header.php'); ?>
 <?php include('src/shop-events.inc.php'); ?>
 

@@ -1,4 +1,8 @@
 <?php
+/*
+    Den här filen inkluderar man för att få med "Users" klassen och alla dess funktioner för CRUD mm.
+*/ 
+
 class Event {
     private $db;
 

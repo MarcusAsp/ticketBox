@@ -1,4 +1,8 @@
 <?php 
+/*
+    Den här filen inkluderar man för att få med "Admin" klassen och alla dess funktioner för inlog mm.
+*/ 
+
 class Admin {
     private $db;
     public function __construct(){
@@ -17,7 +21,6 @@ class Admin {
     }
 
     public function createAccount($userInfo){
-        echo "<script>console.log('Döda mig');</script>";
         $stmt = $this->db->prepare("SELECT * FROM ticketBox.users WHERE `e-mail` = :email");
         if($stmt->execute([':email' => $userInfo[2]]) && $stmt->fetchColumn()){
             echo "<script>alert('User aready exists!');</script>";

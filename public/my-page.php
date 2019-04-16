@@ -1,3 +1,8 @@
+<?php
+/*
+    Detta är sidan där användare ser sina köpta event och deras biljett Id:n
+*/ 
+?>
 <?php include('includes/header.php'); ?>
 <div class="shop-container">
 <?php 

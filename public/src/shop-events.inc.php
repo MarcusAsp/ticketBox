@@ -1,3 +1,8 @@
+<?php
+/*
+    Här skapas "Events" klassen som inkluderas för att läsa in alla aktiva event
+*/ 
+?>
 <?php 
 class Events {
 

@@ -1,3 +1,8 @@
+<?php 
+/*
+    På den här sidan kan admin göra CRUD för biljetter eller "tickets"
+*/ 
+?>
 <?php require_once('includes/admin-header.php'); ?>
 <?php include('src/tickets.inc.php'); ?>
 

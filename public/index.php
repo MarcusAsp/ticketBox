@@ -1,3 +1,8 @@
+<?php
+/*
+    Detta är landnings sidan för användare
+*/ 
+?>
 <?php include('includes/header.php'); ?>
 
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">

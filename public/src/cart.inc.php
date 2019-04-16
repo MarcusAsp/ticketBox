@@ -1,4 +1,10 @@
 <?php
+/*
+    Här skapas "Cart" klassen som inkluderas för att användaren ska kunna köpa
+    biljetter på de event som kunden har i sin varukorg
+*/ 
+?>
+<?php
 class Cart {
     private $db;
     public function __construct()

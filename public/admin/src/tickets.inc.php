@@ -1,3 +1,8 @@
+<?php 
+/*
+    Den här filen inkluderar man för att få med "Ticket" klassen och alla dess funktioner för CRUD mm.
+*/ 
+?>
 <?php
 class Ticket {
     private $db;

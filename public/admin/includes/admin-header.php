@@ -1,4 +1,9 @@
 <?php
+/*
+    Den här filen inkluderar man i alla "page" filer i admin panelen för att
+    få med en header som includar kopplingar mot databasen mm.
+*/ 
+
 require_once('../db/config.php');
 include_once('src/admin-login.inc.php');
 session_start();
