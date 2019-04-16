@@ -9,6 +9,8 @@ if(isset($_POST['logIn'])){
 
     $password = hash("sha256", $password);
 
+    echo('<script>console.log("'.$password.'")</script>');
+
     $user = new User();
     $user->logIn($username, $password);
 }
@@ -16,7 +18,7 @@ if(isset($_POST['logIn'])){
 if(isset($_POST['logOut'])){
     unset($_SESSION['user']);
     session_destroy();
-    header("Location: index.php");
+    Header('Location: '.$_SERVER['PHP_SELF']);
 }
 
 if(isset($_POST['signUpform'])){

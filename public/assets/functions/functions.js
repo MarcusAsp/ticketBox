@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
   function removeFromCart(cartItemNr){
     if(data.length == 1){
-      document.cookie = "cart="+ JSON.stringify(data) + "; expires= Thu, 21 Aug 2014 20:00:00 UTC;";
+      document.cookie = "cart="+ JSON.stringify(data) + "; expires= Thu, 20 Aug 2014 20:00:00 UTC;";
     }else{
       data.pop(cartItemNr);
       document.cookie = "cart="+ JSON.stringify(data);
@@ -93,6 +93,17 @@ function getCookie(cname) {
     }
   }
   return 0;
+}
+
+
+for(let i = 0;i < data.length; i++){
+  let inputVar = "nrOfTickets" + i;
+  let outputVar = "nrOfEvents" + i;
+  let input = document.getElementById(inputVar);
+  let output = document.getElementById(outputVar);
+  input.addEventListener("change", function(){
+    output.value = input.value;
+  });
 }
 
 

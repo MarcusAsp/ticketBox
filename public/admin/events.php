@@ -11,9 +11,9 @@
         $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
         $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_INT);
         $date = preg_replace("([^0-9/\s\-])", "", $_POST['date']);
-        $activeEvent = filter_input(INPUT_POST, 'activeEvent', FILTER_VALIDATE_INT);
+        $activeEvent = filter_input(INPUT_POST, 'activeEvent', FILTER_SANITIZE_STRING);
         
-        if($activeEvent = "True"){
+        if($activeEvent == "True"){
             $activeEventNumber = 1;
         }else{
             $activeEventNumber = 0;

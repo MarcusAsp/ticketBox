@@ -1,33 +1,57 @@
-<?php 
-class User {
+<?php
+class Cart {
     private $db;
-    public function __construct(){
+    public function __construct()
+    {
         $this->db = new Dbh();
         $this->db = $this->db->connect();
     }
 
-    public function logIn($email, $password){
-        $stmt = $this->db->prepare("SELECT * FROM ticketBox.users WHERE `e-mail` = :email AND `password` = :pass");
-        if($stmt->execute([':email' => $email, ':pass' => $password]) && $stmt->fetchColumn()){
-            $_SESSION['user'] = $email;
-        }else {
-            echo "<script>alert('User does not exists!');</script>";
-         }
-        
-    }
+    public function buyEvents($eventId, $nrOfEvents, $user)
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT id FROM users WHERE email = :user");
+            $stmt->bindValue(':user', $user, PDO::PARAM_STR);
+            if ($stmt->execute()) {
+                $userId = $stmt->fetchColumn();
+                $userId = (int)$userId;
+                for ($i = 0; $i < $nrOfEvents; $i++) {
+                    $stmt1 = $this->db->prepare("INSERT INTO ticketBox.tickets
+                    (userId, eventId)
+                    VALUES (?,?)");
+                    if($stmt1->execute([$userId, $eventId])){
+                        $stmt3 = $this->db->prepare("UPDATE ticketBox.event SET nrTickets = nrTickets-1
+                        WHERE id = :id");
+                        $stmt3->bindValue(':id', $eventId, PDO::PARAM_INT);
+                        if($stmt3->execute()){
+                            $id = $this->db->lastInsertId();
+                            $id = (int)$id;
 
-    public function createAccount($userInfo){
-        $stmt = $this->db->prepare("SELECT * FROM ticketBox.users WHERE `e-mail` = :email");
-        if($stmt->execute([':email' => $userInfo[2]]) && $stmt->fetchColumn()){
-            echo "<script>alert('User aready exists!');</script>";
-        }else {
-        $stmt = $this->db->prepare("INSERT INTO ticketBox.users 
-        (`firstName`, `lastName`, `e-mail`, `password`)
-        VALUES (?,?,?,?)");
-        $answer = $stmt->execute([$userInfo[0],$userInfo[1],$userInfo[2],$userInfo[3]]);
+                            $stmt2 = $this->db->prepare("INSERT INTO ticketBox.orders
+                            (userId, eventId, ticketId, usedTicket) 
+                            VALUES (:userId, :eventId, :id, 0)");
 
-        $_SESSION['user'] = $userInfo[2];
-        header("Location: index.php");
+                            $stmt2->bindValue(':userId', $userId, PDO::PARAM_INT);
+                            $stmt2->bindValue(':eventId', $eventId, PDO::PARAM_INT);
+                            $stmt2->bindValue(':id', $id, PDO::PARAM_INT);
+                                if($stmt2->execute()){
+                                    echo('<script>console.log("Hej");</script>');
+                                }else{
+                                    echo('<script>alert("Fel på stmt2->execute");</script>');
+                                }
+                            }else{
+                                echo('<script>alert("Fel på stmt3->execute");</script>');
+                            }
+
+                        }else{
+                            echo('<script>alert("Fel på stmt1->execute");</script>');
+                        }
+                    }
+                }else{
+                    echo('<script>alert("Fel på stmt->execute");</script>');
+                }
+            }catch (PDOException $e) {
+            echo ($e->getMessage());
         }
     }
 }

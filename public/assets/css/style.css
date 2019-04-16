@@ -33,11 +33,15 @@ main{
     width: 
 }
 
-/*
-.cart-container div:nth-child(1){
+.cartLog{
+    margin-top: 20px !important;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-content: center;
 }
-*/
+
+.cartLog > div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
