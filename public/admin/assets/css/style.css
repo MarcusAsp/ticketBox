@@ -11,3 +11,9 @@
     border: 1px solid black;
     box-sizing: border-box;
 }
+
+.searchForm{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}

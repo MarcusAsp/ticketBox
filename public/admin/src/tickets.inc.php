@@ -94,5 +94,49 @@ class Ticket {
         }
     }
 
+    public function readTickets($ticketId = 0)
+    {
+        if(!$ticketId == 0){
+        $stmt = $this->db->prepare("SELECT U.email as email, T.id as ticketId, E.name as user, O.usedTicket as usedTicket FROM ticketbox.tickets as T
+        JOIN ticketBox.event as E ON E.id = eventId
+        JOIN ticketBox.users as U ON U.id = userId
+        JOIN ticketBox.orders as O ON O.ticketId = T.id
+        WHERE T.id = :ticketId");
+        $stmt->bindParam(':ticketId', $ticketId, PDO::PARAM_INT);
+        if($stmt->execute()){
+            if($stmt->rowCount() > 0){
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    $data[] = $row;
+                }
+                return $data;
+            }
+        }
+    }else{
+        $stmt = $this->db->prepare("SELECT U.email as email, T.id as ticketId, E.name as even, O.usedTicket as usedTicket FROM ticketbox.tickets as T
+        JOIN ticketBox.event as E ON E.id = eventId
+        JOIN ticketBox.users as U ON U.id = userId
+        JOIN ticketBox.orders as O ON O.ticketId = T.id");
+        if($stmt->execute()){
+            if($stmt->rowCount() > 0){
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    $data[] = $row;
+                }
+                return $data;
+            }
+        }
+    }
+
+}
+
+    public function scanTicket($ticketId)
+    {
+        $stmt = $this->db->prepare("UPDATE orders SET usedTicket = 1 WHERE ticketId = :id");
+        $stmt->bindValue(':id', $ticketId, PDO::PARAM_INT);
+        if($stmt->execute()){
+            header('Location: scan-tickets.php');
+        }
+    }
+
+
 } /* End of class */
 

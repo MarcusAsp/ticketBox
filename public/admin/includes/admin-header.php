@@ -48,7 +48,10 @@ echo('
                 <a class="nav-link" href="users.php">Users</a>
             </li>
             <li class="nav-item">
-                <a href="../logOutAdmin.php" class="nav-link">Log out</a>
+                <a class="nav-link" href="scan-tickets.php">Scan Tickets</a>
+            </li>
+            <li class="nav-item">
+                <a href="src/logOutAdmin.php" class="nav-link">Log out</a>
             </li>
         </ul>
     </header>
